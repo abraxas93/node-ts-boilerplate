@@ -1,0 +1,25 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "./node_modules/gts/",
+    "eslint:recommended",
+    "plugin:node/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "parser": "flow"
+      }
+    ],
+    "node/no-unsupported-features/es-syntax": 0,
+    "node/no-missing-import": ["error", {
+      "allowModules": [],
+      "tryExtensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
+    }]
+  }
+}
