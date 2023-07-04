@@ -1,5 +1,5 @@
-async function main(params?: any) {
-  console.log('started...' + params);
+async function main() {
+  console.log('...');
 }
 
 main();
