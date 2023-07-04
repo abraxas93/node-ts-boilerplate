@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@*": ["src/*"]
     },
     "skipLibCheck": true,
     "rootDir": "./src",
@@ -26,5 +26,8 @@
     "config/index.js", "config/dev.js", "config/staging.js", "config/production.js" ],
   "exclude": [
     "node_modules",
-  ]
+  ],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
 }

@@ -1,5 +1,8 @@
+import {initLogger} from './logger';
+
+const logger = initLogger(__filename);
 async function main() {
-  console.log('...');
+  logger.info('testing logger inside app');
 }
 
 main();

@@ -1,12 +1,15 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "import"],
   "extends": [
     "./node_modules/gts/",
     "eslint:recommended",
     "plugin:node/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
   ],
   "rules": {
     "prettier/prettier": [
@@ -21,5 +24,26 @@
       "allowModules": [],
       "tryExtensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
     }]
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "paths": ["."],
+        "project": ["/Users/oleksandrsavchuk/Desktop/Projects/node-ts-boilerplate/tsconfig.json"],
+        "moduleDirectory": ["node_modules", "src/", "./src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "node": {
+        "alwaysTryTypes": true,
+        "paths": ["."],
+        "project": ["/Users/oleksandrsavchuk/Desktop/Projects/node-ts-boilerplate/tsconfig.json"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/", "./src"]
+      }
+    }
   }
 }
