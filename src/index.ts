@@ -8,4 +8,4 @@ async function main() {
   await bootstrapDependencies();
 }
 
-main();
+main().catch(err => console.log(err));

@@ -1,22 +1,27 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "import"],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": "./"
+  },
+  "plugins": ["@typescript-eslint", "prettier", "import"],
   "extends": [
-    "./node_modules/gts/",
     "eslint:recommended",
     "plugin:node/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
-    "plugin:import/typescript"
+    "plugin:import/typescript",
+    "plugin:prettier/recommended"
   ],
   "rules": {
     "prettier/prettier": [
       "error",
       {
         "singleQuote": true,
-        "parser": "flow"
+        "parser": "typescript"
       }
     ],
     "node/no-unsupported-features/es-syntax": 0,
@@ -31,18 +36,10 @@
     },
     "import/resolver": {
       "typescript": {
-        "alwaysTryTypes": true,
-        "paths": ["."],
-        "project": ["/Users/oleksandrsavchuk/Desktop/Projects/node-ts-boilerplate/tsconfig.json"],
-        "moduleDirectory": ["node_modules", "src/", "./src"],
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "project": ["packages/tsconfig.json"]
       },
       "node": {
-        "alwaysTryTypes": true,
-        "paths": ["."],
-        "project": ["/Users/oleksandrsavchuk/Desktop/Projects/node-ts-boilerplate/tsconfig.json"],
-        "extensions": [".js", ".jsx", ".ts", ".tsx"],
-        "moduleDirectory": ["node_modules", "src/", "./src"]
+        "project": ["packages/tsconfig.json"]
       }
     }
   }
