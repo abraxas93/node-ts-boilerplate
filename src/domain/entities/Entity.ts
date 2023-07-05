@@ -8,5 +8,5 @@ export abstract class Entity<T> {
     return this.data;
   }
 
-  abstract get id(): string;
+  abstract get id(): string | undefined;
 }

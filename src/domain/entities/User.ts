@@ -1,17 +1,18 @@
 import {Entity} from './Entity';
 
 export interface IUserModel {
-  id: string;
   email: string;
   password: string;
 }
 
 export class User extends Entity<IUserModel> {
-  constructor(model: IUserModel) {
+  private _id?: string | undefined;
+  constructor(model: IUserModel, _id?: string) {
     super(model);
+    this._id = _id;
   }
 
   get id() {
-    return this.data.id;
+    return this._id;
   }
 }
