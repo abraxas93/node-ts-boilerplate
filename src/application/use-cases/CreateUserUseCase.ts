@@ -3,8 +3,9 @@ import {EventEmitter} from 'events';
 import {User} from '../../domain/entities';
 import {IUserRepository} from '../../domain/repositories';
 import Joi from 'joi';
-import {EVENTS} from '../../constants';
+import {EVENT_ERROR} from '../../constants';
 import {inject, injectable} from 'tsyringe';
+import {UseCaseResult} from '../../types';
 
 const schema = Joi.object({
   email: Joi.string().email().required(),
@@ -20,12 +21,15 @@ export class CreateUserUseCase {
     private readonly eventEmitter: EventEmitter
   ) {}
 
-  async execute(data: {email: string; password: string}) {
+  async execute(data: {
+    email: string;
+    password: string;
+  }): Promise<UseCaseResult<string>> {
     try {
       const value = schema.validate(data);
 
       if (value.error) {
-        return {data: null, error: new Error(value.error.message)};
+        return {data: null, error: value.error.message};
       }
 
       const newUser = new User(data, new ObjectId().toString());
@@ -34,7 +38,7 @@ export class CreateUserUseCase {
 
       return {data: insertedId, error: null};
     } catch (error) {
-      this.eventEmitter.emit(EVENTS.ERROR, error);
+      this.eventEmitter.emit(EVENT_ERROR, error);
       return {data: null, error: (error as Error).message};
     }
   }

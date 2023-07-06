@@ -5,7 +5,7 @@ export type Success<T> = {
 
 export type Failure = {
   data: null;
-  error: Error;
+  error: string;
 };
 
 export type UseCaseResult<T> = Success<T> | Failure;

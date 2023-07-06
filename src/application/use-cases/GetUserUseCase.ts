@@ -1,8 +1,10 @@
 import Joi from 'joi';
 import {EventEmitter} from 'events';
 import {IUserRepository} from '../../domain/repositories';
-import {ERR_USER_NOT_FOUND, EVENTS} from '../../constants';
+import {ERR_USER_NOT_FOUND, EVENT_ERROR} from '../../constants';
 import {inject, injectable} from 'tsyringe';
+import {IUserModel} from '../../domain/entities';
+import {UseCaseResult} from '../../types';
 
 const schema = Joi.object({
   id: Joi.string().required(),
@@ -17,12 +19,12 @@ export class GetUserUseCase {
     private readonly eventEmitter: EventEmitter
   ) {}
 
-  async execute(data: {id: string}) {
+  async execute(data: {id: string}): Promise<UseCaseResult<IUserModel>> {
     try {
       const value = schema.validate(data);
 
       if (value.error) {
-        return {data: null, error: new Error(value.error.message)};
+        return {data: null, error: value.error.message};
       }
 
       const user = await this.userRepo.findById(data.id);
@@ -31,7 +33,7 @@ export class GetUserUseCase {
 
       return {data: user.model, error: null};
     } catch (error) {
-      this.eventEmitter.emit(EVENTS.ERROR, error);
+      this.eventEmitter.emit(EVENT_ERROR, error);
       return {data: null, error: (error as Error).message};
     }
   }

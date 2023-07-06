@@ -1,13 +1,11 @@
-import {User} from '../../../domain/entities';
+import {IUserModel, User} from '../../../domain/entities';
 import {Collection, MongoClient, ObjectId} from 'mongodb';
 import {UserMapper} from '../../mappers';
 import {IUserRepository} from '../../../domain/repositories';
 
-export type UserDto = {
+export interface UserDto extends IUserModel {
   _id: ObjectId;
-  email: string;
-  password: string;
-};
+}
 
 export class UserRepository implements IUserRepository {
   protected collection: Collection<UserDto>;

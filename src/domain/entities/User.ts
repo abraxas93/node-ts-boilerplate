@@ -35,4 +35,8 @@ export class User extends Entity<IUserModel> {
     );
     this.model.password = encrypted.toString('hex');
   }
+
+  isPasswordValid(anyPassword: string) {
+    return this.model.password === User.encryptPassword(anyPassword);
+  }
 }
