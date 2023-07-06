@@ -8,15 +8,23 @@ import {
   EVENT_ERROR,
 } from '../../constants';
 import {inject, injectable} from 'tsyringe';
-import {UseCaseResult} from '../../types';
+import {IUseCase, UseCaseResult} from '../../types';
 
 const schema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().alphanum().min(8).max(30).required(),
 });
 
+export type IUserSignIn = IUseCase<
+  {
+    email: string;
+    password: string;
+  },
+  Promise<UseCaseResult<IUserModel>>
+>;
+
 @injectable()
-export class UserSignInUseCase {
+export class UserSignInUseCase implements IUserSignIn {
   constructor(
     @inject('IUserRepository')
     private readonly userRepo: IUserRepository,

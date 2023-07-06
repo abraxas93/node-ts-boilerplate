@@ -5,15 +5,23 @@ import {IUserRepository} from '../../domain/repositories';
 import Joi from 'joi';
 import {EVENT_ERROR} from '../../constants';
 import {inject, injectable} from 'tsyringe';
-import {UseCaseResult} from '../../types';
+import {IUseCase, UseCaseResult} from '../../types';
 
 const schema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().alphanum().min(8).max(30).required(),
 });
 
+export type ICreateUser = IUseCase<
+  {
+    email: string;
+    password: string;
+  },
+  Promise<UseCaseResult<string>>
+>;
+
 @injectable()
-export class CreateUserUseCase {
+export class CreateUserUseCase implements ICreateUser {
   constructor(
     @inject('IUserRepository')
     private readonly userRepo: IUserRepository,
@@ -21,10 +29,7 @@ export class CreateUserUseCase {
     private readonly eventEmitter: EventEmitter
   ) {}
 
-  async execute(data: {
-    email: string;
-    password: string;
-  }): Promise<UseCaseResult<string>> {
+  async execute(data: {email: string; password: string}) {
     try {
       const value = schema.validate(data);
 

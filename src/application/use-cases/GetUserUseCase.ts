@@ -4,14 +4,19 @@ import {IUserRepository} from '../../domain/repositories';
 import {ERR_USER_NOT_FOUND, EVENT_ERROR} from '../../constants';
 import {inject, injectable} from 'tsyringe';
 import {IUserModel} from '../../domain/entities';
-import {UseCaseResult} from '../../types';
+import {IUseCase, UseCaseResult} from '../../types';
 
 const schema = Joi.object({
   id: Joi.string().required(),
 });
 
+export type IGetUser = IUseCase<
+  {id: string},
+  Promise<UseCaseResult<IUserModel>>
+>;
+
 @injectable()
-export class GetUserUseCase {
+export class GetUserUseCase implements IGetUser {
   constructor(
     @inject('IUserRepository')
     private readonly userRepo: IUserRepository,
