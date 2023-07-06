@@ -29,6 +29,7 @@ export class CreateUserUseCase {
       }
 
       const newUser = new User(data, new ObjectId().toString());
+      newUser.encryptPassword();
       const insertedId = await this.userRepo.insertOne(newUser);
 
       return {data: insertedId, error: null};
