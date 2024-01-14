@@ -4,8 +4,9 @@
     "project": "./tsconfig.json",
     "tsconfigRootDir": "./"
   },
-  "plugins": ["@typescript-eslint", "prettier", "import"],
+  "plugins": ["@typescript-eslint", "prettier", "eslint-plugin-import", "import"],
   "extends": [
+    "airbnb-typescript",
     "eslint:recommended",
     "plugin:node/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -17,6 +18,8 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
+    "react/jsx-filename-extension": "off",
+    "node/no-missing-import": "off",
     "prettier/prettier": [
       "error",
       {
@@ -25,22 +28,59 @@
       }
     ],
     "node/no-unsupported-features/es-syntax": 0,
-    "node/no-missing-import": ["error", {
-      "allowModules": [],
-      "tryExtensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
-    }]
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
   },
   "settings": {
     "import/parsers": {
       "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
-      "typescript": {
-        "project": ["packages/tsconfig.json"]
-      },
       "node": {
-        "project": ["packages/tsconfig.json"]
+        "paths": [
+          ".",
+          "./src",
+          "src"
+        ],
+        "extensions": [
+          ".ts",
+          ".tsx",
+          ".jest.tsx",
+          ".d.ts"
+        ]
+      },
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json",
+        "baseUrl": ".",
+        "paths": {
+          "@/*": ["src/*"]
+        },
+        "extensions": [
+          ".ts",
+          ".tsx",
+          ".jest.tsx",
+          ".d.ts"
+        ]
+      },
+      "eslint-import-resolver-custom-alias": {
+        "alias": {
+          "@*": "src/*"
+        },
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
+  },
+  "env": {
+    "node": true,
+    "es6": true
   }
 }

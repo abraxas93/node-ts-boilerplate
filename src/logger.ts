@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import {format, transports, createLogger} from 'winston';
+import { format, transports, createLogger } from 'winston';
 
 const colorizer = format.colorize();
-const outputFormat = format.printf(info => {
-  const {timestamp, label, message, level} = info;
+const outputFormat = format.printf((info) => {
+  const { timestamp, label, message, level } = info;
   return `${colorizer.colorize(level, timestamp)} ${colorizer.colorize(
     level,
     label
@@ -14,11 +12,11 @@ const outputFormat = format.printf(info => {
 
 export function initLogger(file: string) {
   const parsed = file.split('/');
-  const label = parsed.pop();
+  const label = parsed.pop() || '';
   return createLogger({
     format: format.combine(
-      format.label({label: `[${label}]:`}),
-      format.timestamp({format: 'DD/MM/YYYY HH:mm:ss'}),
+      format.label({ label: `[${label}]:` }),
+      format.timestamp({ format: 'DD/MM/YYYY HH:mm:ss' }),
       outputFormat
     ),
     exitOnError: true,

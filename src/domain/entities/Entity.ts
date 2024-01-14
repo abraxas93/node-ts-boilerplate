@@ -1,5 +1,6 @@
 export abstract class Entity<T> {
   protected readonly data: T;
+
   constructor(model: T) {
     this.data = model;
   }

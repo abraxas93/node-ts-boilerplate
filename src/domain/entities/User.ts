@@ -1,6 +1,6 @@
 import crypto from 'crypto';
-import {PASSWORD_SALT, PASSWORD_LENGTH} from '../../config';
-import {Entity} from './Entity';
+import { PASSWORD_SALT, PASSWORD_LENGTH } from '../../config';
+import { Entity } from './Entity';
 
 export interface IUserModel {
   email: string;
@@ -9,6 +9,7 @@ export interface IUserModel {
 
 export class User extends Entity<IUserModel> {
   private _id?: string | undefined;
+
   constructor(model: IUserModel, _id?: string) {
     super(model);
     this._id = _id;

@@ -1,7 +1,7 @@
-import {injectable, inject} from 'tsyringe';
-import {ICreateUser, IGetUser, IUserSignIn} from '../use-cases';
-import {UseCaseResult} from '../../types';
-import {IUserModel} from '../../domain/entities';
+import { injectable, inject } from 'tsyringe';
+import { ICreateUser, IGetUser, IUserSignIn } from '../use-cases';
+import { UseCaseResult } from '../../types';
+import { IUserModel } from '../../domain/entities';
 
 /*
  * Facade class to wrap use cases
@@ -29,14 +29,15 @@ export class UserService implements IUserService {
   ) {}
 
   createUser(email: string, password: string) {
-    return this.createUserUseCase.execute({email, password});
+    return this.createUserUseCase.execute({ email, password });
   }
 
   findUserById(id: string) {
-    return this.getUserUseCase.execute({id});
+    return this.getUserUseCase.execute({ id });
+    // TODO: add an error handling
   }
 
   signInUser(email: string, password: string) {
-    return this.userSignInUseCase.execute({email, password});
+    return this.userSignInUseCase.execute({ email, password });
   }
 }

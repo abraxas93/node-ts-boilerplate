@@ -1,7 +1,7 @@
-import {IUserModel, User} from '../../../domain/entities';
-import {Collection, MongoClient, ObjectId} from 'mongodb';
-import {UserMapper} from '../../mappers';
-import {IUserRepository} from '../../../domain/repositories';
+import { IUserModel, User } from '../../../domain/entities';
+import { Collection, MongoClient, ObjectId } from 'mongodb';
+import { UserMapper } from '../../mappers';
+import { IUserRepository } from '../../../domain/repositories';
 
 export interface UserDto extends IUserModel {
   _id: ObjectId;
@@ -21,16 +21,16 @@ export class UserRepository implements IUserRepository {
   }
 
   async findById(id: string) {
-    const dto = await this.collection.findOne({_id: new ObjectId(id)});
+    const dto = await this.collection.findOne({ _id: new ObjectId(id) });
     if (!dto) return null;
-    const {_id, ...model} = dto;
+    const { _id, ...model } = dto;
     return new User(model, _id.toString());
   }
 
   async findByEmail(email: string) {
-    const dto = await this.collection.findOne({email});
+    const dto = await this.collection.findOne({ email });
     if (!dto) return null;
-    const {_id, ...model} = dto;
+    const { _id, ...model } = dto;
     return new User(model, _id.toString());
   }
 }

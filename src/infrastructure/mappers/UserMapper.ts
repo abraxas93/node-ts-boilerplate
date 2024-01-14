@@ -1,6 +1,6 @@
-import {ObjectId} from 'mongodb';
-import {User} from '../../domain/entities';
-import {UserDto} from '../database/mongo/UserRepository';
+import { ObjectId } from 'mongodb';
+import { User } from '../../domain/entities';
+import { UserDto } from '../database/mongo/UserRepository';
 
 export class UserMapper {
   static mapToDTO(user: User): UserDto {
