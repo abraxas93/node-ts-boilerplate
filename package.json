@@ -4,6 +4,8 @@
   "description": "A node / typescript application template",
   "main": "index.js",
   "scripts": {
+    "build": "tsc && tsc-alias",
+    "start": "node ./dist/index.js",
     "test": "npm run test",
     "dev": "NODE_ENV=dev ts-node-dev --respawn --transpile-only -r tsconfig-paths/register ./src/index.ts"
   },
@@ -48,6 +50,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.8.8",
     "ts-node-dev": "^2.0.0",
+    "tsc-alias": "^1.8.8",
     "tsconfig-paths": "^4.2.0"
   },
   "engines": {
