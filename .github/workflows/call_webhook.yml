@@ -15,4 +15,4 @@ jobs:
           curl -X POST \
             -H "Content-Type: application/json" \
             -d "{\"sha\": \"${{ github.sha }}\"}" \
-            https://api.ai-uat.cprime.com/404
+            https://api.ai-uat.cprime.com/test
