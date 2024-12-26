@@ -1,0 +1,18 @@
+name: Call external webhook on push
+
+on:
+  push:
+    branches:
+      - main # or specify any other branches you want to trigger on
+
+jobs:
+  call-webhook:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send commit SHA to external webhook
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d "{\"sha\": \"${{ github.sha }}\"}" \
+            https://api.ai-uat.cprime.com/404
